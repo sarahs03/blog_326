@@ -1,0 +1,403 @@
+---
+title: "Project 3: Confidence Intervals"
+---
+
+```{r}
+#| warning: FALSE
+library(resample)
+library(tidyverse)
+```
+
+# p = .45
+
+```{r}
+n <- 8   # sample size
+p <- 0.45  # population proportion
+test_assump <- n*p
+test_assump2 <- n * (1 - p)
+large_assump = if_else(
+  test_assump > 10,
+  true = TRUE,
+  false = FALSE
+)
+
+large_assump2 = if_else(
+  test_assump2 > 10,
+  true = TRUE,
+  false = FALSE
+)
+
+generate_samp_prop <- function(n, p) {  
+  x <- rbinom(1, n, p)
+  
+  phat <- x / n
+  phat
+
+  lb <- phat - 1.645 * sqrt(phat * (1 - phat) / n)
+  ub <- phat + 1.645 * sqrt(phat * (1-phat) / n)
+  
+  prop_df <- tibble(phat, lb, ub)
+  return(prop_df)
+}
+
+generate_samp_prop(n = n, p = p)
+
+
+n_sim <- 5000
+
+prop_ci_df <- map(1:n_sim,
+    \(i) generate_samp_prop(n = n, p = p)) |>
+  bind_rows()
+
+
+
+prop_ci_df <- prop_ci_df |> mutate(ci_width = ub - lb,
+                                   ci_cover_ind = if_else(p > lb & p < ub,
+                                                          true = 1, 
+                                                          false = 0))
+prop_ci_df |> summarise(avg_width = mean(ci_width),
+                        coverage_rate = mean(ci_cover_ind))
+
+
+np <- n*p
+n_1p <- n * (1 - p)
+testnp <- if_else(np > 10,
+                   true = TRUE,
+                   false = FALSE)
+testn_1p <- if_else(n_1p > 10,
+                    true = TRUE,
+                    false = FALSE)
+np
+n_1p
+testnp # larger than 10?
+testn_1p # larger than 10?
+```
+
+```{r}
+n <- 57   # sample size
+p <- 0.45  # population proportion
+test_assump <- n*p
+test_assump2 <- n * (1 - p)
+large_assump = if_else(
+  test_assump > 10,
+  true = TRUE,
+  false = FALSE
+)
+
+large_assump2 = if_else(
+  test_assump2 > 10,
+  true = TRUE,
+  false = FALSE
+)
+
+generate_samp_prop <- function(n, p) {  
+  x <- rbinom(1, n, p) 
+  
+  phat <- x / n
+  phat
+  
+  lb <- phat - 1.645 * sqrt(phat * (1 - phat) / n)
+  ub <- phat + 1.645 * sqrt(phat * (1-phat) / n)
+  
+  prop_df <- tibble(phat, lb, ub)
+  return(prop_df)
+}
+
+generate_samp_prop(n = n, p = p)
+
+
+n_sim <- 5000
+
+prop_ci_df <- map(1:n_sim,
+    \(i) generate_samp_prop(n = n, p = p)) |>
+  bind_rows()
+
+
+
+prop_ci_df <- prop_ci_df |> mutate(ci_width = ub - lb,
+                                   ci_cover_ind = if_else(p > lb & p < ub,
+                                                          true = 1, 
+                                                          false = 0))
+prop_ci_df |> summarise(avg_width = mean(ci_width),
+                        coverage_rate = mean(ci_cover_ind))
+
+np <- n*p
+n_1p <- n * (1 - p)
+testnp <- if_else(np > 10,
+                   true = TRUE,
+                   false = FALSE)
+testn_1p <- if_else(n_1p > 10,
+                    true = TRUE,
+                    false = FALSE)
+np
+n_1p
+testnp # larger than 10?
+testn_1p # larger than 10? 
+```
+
+```{r}
+n <- 793   # sample size
+p <- 0.45  # population proportion
+test_assump <- n*p
+test_assump2 <- n * (1 - p)
+large_assump = if_else(
+  test_assump > 10,
+  true = TRUE,
+  false = FALSE
+)
+
+large_assump2 = if_else(
+  test_assump2 > 10,
+  true = TRUE,
+  false = FALSE
+)
+
+generate_samp_prop <- function(n, p) {  
+  x <- rbinom(1, n, p) 
+  
+  phat <- x / n
+  phat
+  
+  lb <- phat - 1.645 * sqrt(phat * (1 - phat) / n)
+  ub <- phat + 1.645 * sqrt(phat * (1-phat) / n)
+  
+  prop_df <- tibble(phat, lb, ub)
+  return(prop_df)
+}
+
+generate_samp_prop(n = n, p = p)
+
+
+n_sim <- 5000
+
+prop_ci_df <- map(1:n_sim,
+    \(i) generate_samp_prop(n = n, p = p)) |>
+  bind_rows()
+
+
+
+prop_ci_df <- prop_ci_df |> mutate(ci_width = ub - lb,
+                                   ci_cover_ind = if_else(p > lb & p < ub,
+                                                          true = 1, 
+                                                          false = 0))
+prop_ci_df |> summarise(avg_width = mean(ci_width),
+                        coverage_rate = mean(ci_cover_ind))
+
+np <- n*p
+n_1p <- n * (1 - p)
+testnp <- if_else(np > 10,
+                   true = TRUE,
+                   false = FALSE)
+testn_1p <- if_else(n_1p > 10,
+                    true = TRUE,
+                    false = FALSE)
+np
+n_1p
+testnp # larger than 10?
+testn_1p # larger than 10?
+```
+
+# p = .03
+
+```{r}
+n <- 8   # sample size
+p <- 0.03  # population proportion
+test_assump <- n*p
+test_assump2 <- n * (1 - p)
+large_assump = if_else(
+  test_assump > 10,
+  true = TRUE,
+  false = FALSE
+)
+
+large_assump2 = if_else(
+  test_assump2 > 10,
+  true = TRUE,
+  false = FALSE
+)
+
+generate_samp_prop <- function(n, p) {  
+  x <- rbinom(1, n, p) 
+  
+  phat <- x / n
+  phat
+  
+  lb <- phat - 1.645 * sqrt(phat * (1 - phat) / n)
+  ub <- phat + 1.645 * sqrt(phat * (1-phat) / n)
+  
+  prop_df <- tibble(phat, lb, ub)
+  return(prop_df)
+}
+
+generate_samp_prop(n = n, p = p)
+
+
+n_sim <- 5000
+
+prop_ci_df <- map(1:n_sim,
+    \(i) generate_samp_prop(n = n, p = p)) |>
+  bind_rows()
+
+
+
+prop_ci_df <- prop_ci_df |> mutate(ci_width = ub - lb,
+                                   ci_cover_ind = if_else(p > lb & p < ub,
+                                                          true = 1, 
+                                                          false = 0))
+prop_ci_df |> summarise(avg_width = mean(ci_width),
+                        coverage_rate = mean(ci_cover_ind))
+
+np <- n*p
+n_1p <- n * (1 - p)
+testnp <- if_else(np > 10,
+                   true = TRUE,
+                   false = FALSE)
+testn_1p <- if_else(n_1p > 10,
+                    true = TRUE,
+                    false = FALSE)
+np
+n_1p
+testnp # larger than 10?
+testn_1p # larger than 10?
+```
+
+```{r}
+n <- 57   # sample size
+p <- 0.03  # population proportion
+test_assump <- n*p
+test_assump2 <- n * (1 - p)
+large_assump = if_else(
+  test_assump > 10,
+  true = TRUE,
+  false = FALSE
+)
+
+large_assump2 = if_else(
+  test_assump2 > 10,
+  true = TRUE,
+  false = FALSE
+)
+
+generate_samp_prop <- function(n, p) {  
+  x <- rbinom(1, n, p)
+  
+  phat <- x / n
+  phat
+  
+  lb <- phat - 1.645 * sqrt(phat * (1 - phat) / n)
+  ub <- phat + 1.645 * sqrt(phat * (1-phat) / n)
+  
+  prop_df <- tibble(phat, lb, ub)
+  return(prop_df)
+}
+
+generate_samp_prop(n = n, p = p)
+
+
+n_sim <- 5000
+
+prop_ci_df <- map(1:n_sim,
+    \(i) generate_samp_prop(n = n, p = p)) |>
+  bind_rows()
+
+
+
+prop_ci_df <- prop_ci_df |> mutate(ci_width = ub - lb,
+                                   ci_cover_ind = if_else(p > lb & p < ub,
+                                                          true = 1, 
+                                                          false = 0))
+prop_ci_df |> summarise(avg_width = mean(ci_width),
+                        coverage_rate = mean(ci_cover_ind))
+
+np <- n*p
+n_1p <- n * (1 - p)
+testnp <- if_else(np > 10,
+                   true = TRUE,
+                   false = FALSE)
+testn_1p <- if_else(n_1p > 10,
+                    true = TRUE,
+                    false = FALSE)
+np
+n_1p
+testnp# larger than 10?
+testn_1p # larger than 10?
+```
+
+```{r}
+n <- 793   # sample size
+p <- 0.03  # population proportion
+test_assump <- n*p
+test_assump2 <- n * (1 - p)
+large_assump = if_else(
+  test_assump > 10,
+  true = TRUE,
+  false = FALSE
+)
+
+large_assump2 = if_else(
+  test_assump2 > 10,
+  true = TRUE,
+  false = FALSE
+)
+
+generate_samp_prop <- function(n, p) {  
+  x <- rbinom(1, n, p) 
+  
+  phat <- x / n
+  phat
+  
+  lb <- phat - 1.645 * sqrt(phat * (1 - phat) / n)
+  ub <- phat + 1.645 * sqrt(phat * (1-phat) / n)
+  
+  prop_df <- tibble(phat, lb, ub)
+  return(prop_df)
+}
+
+generate_samp_prop(n = n, p = p)
+
+
+n_sim <- 5000
+
+prop_ci_df <- map(1:n_sim,
+    \(i) generate_samp_prop(n = n, p = p)) |>
+  bind_rows()
+
+
+prop_ci_df <- prop_ci_df |> mutate(ci_width = ub - lb,
+                                   ci_cover_ind = if_else(p > lb & p < ub,
+                                                          true = 1, 
+                                                          false = 0))
+prop_ci_df |> summarise(avg_width = mean(ci_width),
+                        coverage_rate = mean(ci_cover_ind))
+
+np <- n*p
+n_1p <- n * (1 - p)
+testnp <- if_else(np > 10,
+                   true = TRUE,
+                   false = FALSE)
+testn_1p <- if_else(n_1p > 10,
+                    true = TRUE,
+                    false = FALSE)
+np
+n_1p
+testnp # larger than 10?
+testn_1p # larger than 10?
+```
+
+|           |               | $n = 8$ | $n = 57$ | $n = 793$ |
+|:---------:|:-------------:|:-------:|:--------:|:---------:|
+| $p = .03$ | Coverage Rate |  .222   |   .807   |   .880    |
+| $p = .45$ | Coverage Rate |  .845   |   .89    |   .904    |
+|           |               |         |          |           |
+| $p = .03$ | Average Width |  .0882  |  .0642   |   .0198   |
+| $p = .45$ | Average Width |  .536   |   .215   |   .0581   |
+
+: Table of Results {.striped .hover}
+
+## Findings
+
+The large sample assumption for 3 of the 6 settings holds, while 3 of the 6 settings violate the large sample assumption. Both settings with p = .03 and p = .45 are violated when n = 8. When tested using the equations `n*p` and `n*(1-p)`, the results for p = .03 (.24, 7.76) and p = .45 (3.6, 4.4) are less than 10. This also occurs for the `n*p` equation when p = .03 and n = 57 (resulting in 1.71), making that the third large sample assumption violation. When n = 793, both equations result in values larger than ten for both population proportions (23.79, 769.21 for when p = .03 and 356.85, 436.15 for when p = .45), meaning that the large sample assumption holds. The same goes for the setting n = 57 and p = .45.
+
+For the settings that passed the large sample assumption, the coverage rate was close to or at .9 because the confidence interval is 90%. Due to (n = 57, p = .45) and (n = 793, p = .45) both passing the large sample assumption, it can be observed that the coverage rate doesn't change much as n increases and is equivalent to .9 when rounded. When n = 8, the coverage rates for p = .03 and p = .45 were .222 and .845 respectfully, while the coverage rate for (n = 57 and p = .03) was .807. These three settings failed the large sample assumption and were all around .85 or less, meaning that when the large sample assumption fails to hold, the coverage rate is not .9 or very close to .9. This means that the intervals given by these settings wouldn't be a good 90% confidence interval, because the amount of coverage isn't close enough to .90.
+
+The average width for p = .45 decreased as n increased, going from .536 when n = 8 to .0581 when n = 793. This decrease can also be seen for p = .03 as the average width goes from .0882 to .0198. Although the large sample assumption fails when (n = 8, p = .45) it does hold for (n = 57, p = .45) and (n = 793, p = .45), which can explain the average width of (n = 57, p = .45) being larger than (n = 793, p = .45). However, due to (n = 8, p = .03) and (n = 57, p = .03) both also failing the assumption, it is hard to tell if that is truly the case. Since `t*(s/sqrt(n))` from the confidence interval formula controls the width of the interval, it makes sense that the width would decrease as n increases due to n being the denominator. It could also potentially explain why (n = 8, p = .45) is still larger than (n = 57, p = .45) and why the first two samples sizes have larger average widths than n = 793 when p = .03 despite the large assumption failing to hold.
