@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.555">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>blog_326 - Project 5: Hypothesis Testing</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed fullcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">blog_326</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">Reflection</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com"> <i class="bi bi-twitter" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Project 5: Hypothesis Testing</h1>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<section id="section" class="level1">
+<h1>1.</h1>
+<p>I think the author means that people will focus less on p &lt; .05 and the significance of their results and instead focus on actually analyzing and discussing their results. De-emphasizing the p-value and statistical significance would allow for more discussion of less than perfect results. Instead of fixating on results that fit within the constraints of p &lt; .05, researchers could discuss results that may have higher p-values. Doing so would allow for more analysis into what worked and what didn’t and how such results may have occurred, thus improving overall knowledge and potentially even improving the test or experiment used. I also think that getting rid of the use of statistical significance would result in researchers having to consider other means of statistical analysis and inference, forcing them to question the effectiveness and usefulness of different statistical tools, compare models, and analyze their assumptions about the data and results, which is statistical thinking. Instead of basing their explanations primarily around significance, they may analyze their data to see what is actually occurring rather than what is “significant”. I think that to embody statistical thinking, it is required to consider any potential biases and view the problem from a neutral standpoint. For example, it may be a popular sentiment that package theft has been on the rise due to so many neighbors having their packages stolen from their porch. However, if you were to take data on porch piracy and analyze it via graphing and modeling, you would see that porch piracy has actually been decreasing, and that the belief of an increase may come from exposure bias. Statistical thinking isn’t just about acknowledging bias and conducting analyses to disprove common beliefs, however. It’s also about applying statistical tools and techniques to solve problems. For example, politicians and statisticians may work together to decrease the amount of opiate overdoses by using statistics from previous years about emergency response times, education, and the prevalence of narcan use in responding to opiate overdoses. Statisticians could use different tools such as modeling that may result in suggestions of an increase in narcan supply, the necessity of faster emergency response times, and an increase in education. Politicians could then use that information to implement different policies to do such a thing. However, results that may occur from such modeling are not foolproof, and in order to completely embody statistical thinking, it’s necessary to acknowledge the potential shortcomings and limits of models and analyses.</p>
+</section>
+<section id="section-1" class="level1">
+<h1>2.</h1>
+<p>The author means that treating p-values as a means of determining what is significant and what is insignificant is pointless because this idea of significance comes from a misunderstanding of its original use. Significance is often associated with usefulness, importance, and probability while insignificance is associated with unimportance and improbability. The intention of the use of the word significance was to indicate whether or not more scrutiny was needed - it was never meant to be used in the way that it is used today. Now, p-values are used as a part of determining the rejection of the null hypothesis in hypothesis testing where questions of significance are regularly brought up and the rejection or failure or rejection involves explanations in determining whether or not something was statistically significant. When the author mentions the dichotomization of p-values, they are talking about the categorization of “significant” and “not significant.” The issue with the dichotomization of the p-value is that it incorrectly establishes an authority of the p-value where it can be used to determine the significance or lack thereof in a way where significance is misunderstood as providing proof of plausibility and importance of a result. It contributes to black and white views of results, where one side is deemed worthy of consideration and the other is deemed unworthy and disregarded. This can result in researchers prioritizing certain results when the disregarded results may have provided interesting insight into their research. It creates this idea that significance should be valued above all when there are many other useful statistical inferences that have been disregarded alongside unworthy results.</p>
+</section>
+<section id="section-2" class="level1">
+<h1>3.</h1>
+<p>I agree that p-values shouldn’t have to pass a threshold in order to choose which results to present or highlight because as the paper points out, it could result in bias since the results that fit the proper threshold will get published and reported, leaving out other results that may be of interest. That interest may not be due to “correctness” (i.e.&nbsp;fitting a desired outcome) or what works best, but rather something that can be learned. I think that it’s useful to highlight results that have occurred due to an error or a deviation from the intended experiment or process, as it can help researchers understand what’s happening, how, and what aspect impacts or causes certain results. With that being said, I don’t think that there’s a one size fits all solution to determining what gets presented in publishing, rather it’s a case by case basis. I believe that results that reveal information about the data, regardless of whether they were the desired outcome or the product of a mistake, would serve as noteworthy inclusions given that they help researchers further understand a topic or process. When it comes to “bad” results, it’s always good to look back on what went wrong and how to adjust the study or experiment in the future. I think that reproducibility is an important aspect as well, as it allows others to see where results have come from and further their understanding as to why and what’s been impacted. I think that there are some cases, such as the FDA’s, where p-values can be used to determine what gets published, if only until a better solution for interpreting the results is found since some organizations and researchers have become very reliant on the p-values.</p>
+</section>
+<section id="section-3" class="level1">
+<h1>4.</h1>
+<p>I agree that there’s no one size fits all approach to statistical inference in scientific research because there are too many fields of science and too many types of research to come up with one approach that works well for all of them. Each field has its own standards, with some standards being more similar than others. There is bound to be some conflict in what is appropriate and what is inappropriate in certain fields. I believe that what works best is dependent on the specific study or experiment being done, as some statistical tools and methods might be of better use than others. The FDA example given further in the reading is a good example of this. While it may be possible for them to move away from their reliance on p-values, it’s not an easy task considering that they have been doing it for such a long time and that it’s worked for them. It’s much easier to establish general principles like ATOM and allow the researcher to use what works best for their research, as long as they provide extensive justifications for what they are choosing to do and why.</p>
+</section>
+<section id="section-4" class="level1">
+<h1>5.</h1>
+<p>I think that statistical thoughtfulness means putting everything into consideration. It’s considering all of the prior information and context of the data you are looking at, potential results of the study/experiment, careful designs of your study/experiment, and the utilization of various methods of analysis when looking at results. As said in the text, it’s also about “investing in producing solid data” (page 3, section 3).To demonstrate statistical thoughtfulness, researchers should ask questions pertaining to their data. For example, they should be considering whether or not they made the correct assumptions when analyzing their data, question the precision of their estimates, and whether or not the study was adequately designed. Statistical thoughtfulness to me also means being very thorough in your analysis and study, considering possible outcomes and being able to justify what you’re doing and why. It also involves putting thought into how results and data are conveyed, and their implications. Another way to demonstrate statistical thoughtfulness is by making sure that your data and results are explained in ways that are accessible to your audience. An example of this is seen in 3.2.4, where some authors suggest replacing the words significant and confidence with compatibility so that the terms aren’t misunderstood. Overall, I consider statistical thoughtfulness to be very similar, if not nearly identical to statistical thinking, with statistical thoughtfulness being more thorough and purposeful in what is being done and more research related, while statistical thinking is better suited for non-resarch occurrences and applications.</p>
+</section>
+<section id="section-5" class="level1">
+<h1>6.</h1>
+<p>I think that the authors believe that the problem is that people see words like significance and confidence and make the wrong associations. People associate significance with importance and necessity and confidence with certainty, so when they are looking at confidence intervals, they’re seeing an interval of “correct” data with the incorrect and useless values left out of the interval and to be considered no longer. In combination with the prioritization of a small p-value due to a misconstrued understanding of significance, the author believes that there’s a risk of overconfidence which I believe may stem from the acceptance of confidence intervals that are too narrow simply because it contains a certain value. I think the overconfidence is not necessarily about the narrowness of the interval, but also in regards to misunderstood interpretations of confidence intervals, where the intervals are treated less as estimates and more as significant values. The authors introduced the term compatibility to try and rid p-values and confidence intervals of misunderstood associations and to encourage people to view confidence intervals as producing estimates that are compatible with the data under the created model instead of values that the data should fall into. It’s a similar situation with p-values, where compatibility can be used to shape the view of p-values as “measuring compatibility between hypothesis and data” (section 3.2.4) instead of p-values as determining significance. I think that the overall goal is to view confidence intervals and p-values in relation to the data instead of as a descriptor of the data.</p>
+<p>I agree that there may be an issue with people misunderstanding the words significance and confidence, resulting in the misunderstanding of confidence intervals and p-values. However, I don’t really agree that the solution is to change the wording because I feel like compatibility may still be misunderstood in a similar way to the words significance and confidence, thus resulting in the similar treatment. I think the better course of action is to provide more in depth explanations about what is actually happening and what the p-values and confidence intervals are actually telling you and what they actually represent. Changing the words to compatibility may help with some context, but I think in order to get people to fully understand what is going on, you need to explain it to them instead of relying on implicit understanding.</p>
+</section>
+<section id="section-6" class="level1">
+<h1>7.</h1>
+<p>At the end of section four, the quote “no publication policy will be perfect. Science is inherently challenging and we must always be willing to accept that a certain proportion of research is potentially false” really stuck out to me because while it seems obvious that some research is wrong, I never really consider that when I read research papers. If a paper is published then that means it’s most likely been peer-reviewed and checked by experts in the field, so the possibility of research being false always seems so low to me. This quote has made me realize that I view research in a very idealistic way without even realizing it. I tend to trust papers that have been published due to their potential peer-reviewed status and while the idea that it’s incorrect may be a thought in the back of my mind, I often don’t entertain it, choosing to trust the researcher. Unless the author of the paper themselves acknowledges their research’s shortcomings or I come across a different paper that criticizes it, I don’t look at papers as critically as I should be, especially if it’s from a field that I have little knowledge about. This quote has revealed a blind spot that I have in regards to research and publications and has made me realize that I need to be more outwardly critical of what I read instead of assuming that the author is right.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
